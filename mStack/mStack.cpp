@@ -38,15 +38,15 @@ void MStack::push(int value){
 
 int MStack::pop(){
     
-    if(head == NULL){
-        cout << "The stack is empty! \n";
-    } else {
-        Node * tmp = head;
-        int value = head->value;
-        head = head->next;
-        delete tmp;
-        sSize--;
-    }
+    assert(sSize > 0);
+
+    Node * tmp = head;
+    int value = head->value;
+    head = head->next;
+    delete tmp;
+    sSize--;
+
+    return value;
     
 }
 
