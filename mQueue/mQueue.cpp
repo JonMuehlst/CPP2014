@@ -1,7 +1,9 @@
 #include <iostream>
-#include <string>
+#include <sstream>
+#include "mQueue.h"
 
 using std::cout;
+using std::stringstream;
 
 MQ::MQ(){
     
@@ -15,7 +17,6 @@ MQ::~MQ(){
     cout << "Queue is gone! \n";
     
 }
-
 
 void MQ::enqueue(int value){
     
@@ -54,8 +55,12 @@ string MQ::toString(){
     string ans = "";
     Node * tmp = head;
     
-    while(tmp){
-        ans += "" + tmp->value + ", ";    
+    while(tmp != NULL){
+        stringstream ss;
+        ss << tmp->value;
+        string s = ss.str();
+        ans += "" + s + ", "; 
+        tmp = tmp->next;
     }
     
     return ans;

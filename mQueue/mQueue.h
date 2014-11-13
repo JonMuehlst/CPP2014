@@ -1,6 +1,10 @@
 #ifndef MQUEUE_H
 #define MQUEUE_H
 
+#include <string>
+
+using std::string;
+
 struct Node {
     
   int value;
