@@ -22,7 +22,8 @@ int main(){
        
     }
     
-     q->dequeue();
+    cout << "Size: " << q->size() << std::endl;
+    //  q->dequeue();
      
      delete q;
     

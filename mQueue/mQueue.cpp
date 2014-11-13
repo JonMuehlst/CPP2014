@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <assert.h>
 #include "mQueue.h"
 
 using std::cout;
@@ -44,16 +45,16 @@ void MQ::enqueue(int value){
 
 int MQ::dequeue(){
     
-    if(head == NULL){
-        cout << "The queue is empty! \n";
-    } else {
-        Node * tmp = head;
-        int value = head->value;
-        head = head->next;
-        delete tmp;
-        sSize--;
-    }
-    
+    assert(sSize > 0);
+
+    Node * tmp = head;
+    int value = head->value;
+    head = head->next;
+    delete tmp;
+    sSize--;
+
+    return value;
+        
 }
 
 string MQ::toString(){
