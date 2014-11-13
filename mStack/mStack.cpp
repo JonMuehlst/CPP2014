@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <assert.h>
 #include "mStack.h"
 
 using std::cout;

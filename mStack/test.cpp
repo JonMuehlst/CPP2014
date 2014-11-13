@@ -22,7 +22,8 @@ int main(){
        
     }
     
-     s->pop();
+    cout << "Size: " << s->size() << std::endl;
+    //  s->pop();
      
      delete s;
     
