@@ -21,10 +21,12 @@ class MQ {
         int dequeue();
         string toString();
         bool isEmpty();
+        size_t size();
         
     private:
         Node * head;
-        size_t size;
+        Node * tail;
+        size_t sSize;
     
 };
 

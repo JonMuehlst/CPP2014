@@ -8,7 +8,7 @@ using std::stringstream;
 MQ::MQ(){
     
     head = NULL;    
-    size = 0;
+    sSize = 0;
     
 }
 
@@ -24,15 +24,21 @@ void MQ::enqueue(int value){
         head = new Node;
         head->value = value;
         head->next = NULL;
+    } else if(tail == NULL){
+        tail = new Node;
+        tail->value = value;
+        tail->next = NULL;
+        head->next = tail;
     } else {
         Node * tmp;
         tmp = new Node;
         tmp->value = value;
-        tmp->next = head;
-        head = tmp;
+        tmp->next = NULL;
+        tail->next = tmp;
+        tail = tmp;
     }
     
-    size++;
+    sSize++;
     
 }
 
@@ -42,10 +48,10 @@ int MQ::dequeue(){
         cout << "The queue is empty! \n";
     } else {
         Node * tmp = head;
-        int value = tmp->value;
-        head->next = head->next->next;
+        int value = head->value;
+        head = head->next;
         delete tmp;
-        size--;
+        sSize--;
     }
     
 }
@@ -69,9 +75,15 @@ string MQ::toString(){
 bool MQ::isEmpty(){
     
     if(head){
-        return true;
-    } else {
         return false;
+    } else {
+        return true;
     }
+    
+}
+
+size_t MQ::size(){
+    
+    return sSize;
     
 }
