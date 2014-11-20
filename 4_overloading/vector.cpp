@@ -18,23 +18,25 @@ vector::vector(double x, double y, double z){
     
 }
 
-vector& vector::operator+ (const vector& v){
+vector vector::operator+ (const vector& v){
     
-    this->x += v.x;
-    this->y += v.y;
-    this->z += v.z;
+    vector ans = vector();
+    ans.x = this->x + v.x;
+    ans.y = this->y + v.y;
+    ans.z = this->z + v.z;
     
-    return *this;
+    return ans;
     
 }
 
-vector& vector::operator- (const vector& v){
+vector vector::operator- (const vector& v){
     
-    this->x -= v.x;
-    this->y -= v.y;
-    this->z -= v.z;
+    vector ans = vector();
+    ans.x = this->x - v.x;
+    ans.y = this->y - v.y;
+    ans.z = this->z - v.z;
 
-    return *this;    
+    return ans;    
     
 }
 
@@ -48,33 +50,33 @@ double vector::operator* (const vector& v){
     
 }
 
-vector& vector::operator* (const double scalar){
+vector vector::operator* (const double scalar){
     
-    this->x *= scalar;
-    this->y *= scalar;
-    this->z *= scalar;
+    vector ans = vector();
+    ans.x = this->x * scalar;
+    ans.y = this->y * scalar;
+    ans.z = this->z * scalar;
     
-    return *this;
-    
-}
-
-vector& vector::operator/ (const double scalar){
-    
-    this->x /= scalar;
-    this->y /= scalar;
-    this->z /= scalar;
-    
-    return *this;    
+    return ans;
     
 }
 
-vector& vector::operator= (const vector& v){
+vector vector::operator/ (const double scalar){
+    
+    vector ans = vector();
+    ans.x = this->x / scalar;
+    ans.y = this->y / scalar;
+    ans.z = this->z / scalar;
+    
+    return ans;    
+    
+}
+
+void vector::operator= (const vector& v){
     
     this->x = v.x;
     this->y = v.y;
     this->z = v.z;
-    
-    return *this;
     
 }
 

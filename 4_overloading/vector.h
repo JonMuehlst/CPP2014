@@ -11,12 +11,12 @@ class vector {
   public:
     vector();
     vector(double,double,double);
-    vector& operator+ (const vector&);
-    vector& operator- (const vector&);
+    vector operator+ (const vector&);
+    vector operator- (const vector&);
     double operator* (const vector&);
-    vector& operator* (const double);
-    vector& operator/ (const double);
-    vector& operator= (const vector&);
+    vector operator* (const double);
+    vector operator/ (const double);
+    void operator= (const vector&);
     double operator[] (const int);
     bool operator== (const vector&);
     vector operator++ (int);
