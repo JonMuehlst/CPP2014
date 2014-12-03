@@ -44,6 +44,10 @@ class Matrix
     const int getDimension() const;
     //------------------------------
     
+    // General functions
+    void transpose();
+    //------------------------------
+    
     // Unary operators
     Matrix<Type>& operator=(const Matrix<Type> & rhs);
     //------------------------------
@@ -70,6 +74,7 @@ class Matrix
     // Friend tests
     FRIEND_TEST(matrix_test_class, assignment);
     FRIEND_TEST(matrix_test_class, addition);
+    FRIEND_TEST(matrix_test_class, transpose);
     //------------------------------
 };
 
@@ -149,6 +154,19 @@ void Matrix<Type>::printMatrix()
       }
       cout << endl;
    }
+}
+
+template <typename Type>
+void Matrix<Type>::transpose(){
+    
+    for (int i=0; i< dim; i++){
+      for(int j=0; j< i; j++){
+   	   Type tmp = mat[i][j];
+   	   mat[i][j] = mat[j][i];
+   	   mat[j][i] = tmp;
+      }
+    }
+    
 }
 
 template<typename T>

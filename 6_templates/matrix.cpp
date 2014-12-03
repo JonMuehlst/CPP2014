@@ -49,3 +49,15 @@ for(int i = 0; i < C.getDimension(); i++)
       EXPECT_DOUBLE_EQ(10, C.mat[i][j]);
       
 }
+
+
+TEST_F(matrix_test_class, transpose){
+    
+    A = B;
+
+    A.transpose();
+    
+    for(size_t i = 0; i < A.getDimension(); i++)
+        for(size_t j = 0; j < i; j++)
+            EXPECT_TRUE(B.mat[i][j] == A.mat[j][i]);
+}
