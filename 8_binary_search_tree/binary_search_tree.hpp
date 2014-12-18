@@ -152,82 +152,17 @@ class BinarySearchTree{
         
         // Insert
         //=======================
-        bool insert(T _val){
-            if(root == NULL){
-                root = new node(_val);
-                return true;
-            }
-            
-            node * traverser = root;
-            node * parent = NULL;
-            
-            while(traverser != NULL){
-                
-                if(_val == traverser->key)
-                    return false;
-                    
-                parent = traverser;
-                // std::cout << parent->key << std::endl;
-                if(_val < traverser->key){
-                    traverser = traverser->left;
-                } else {
-                    traverser = traverser->right;
-                }
-                
-            }
-            
-            if(_val < parent->key){
-                parent->left = new node(_val);
-                return true;
-            } else {
-                parent->right = new node(_val);
-                return true;
-            }
-                
-            return false;
-            
-        }
+        bool insert(T _val);
         //=======================
         
         // Delete
         //=======================
-        bool deleteNode(T val){
-            node * parent = NULL;
-            node * traverser = root;
-            while(traverser){
-                if(traverser->key == val)
-                    break;
-                if(val < traverser->key){
-                    parent = traverser;
-                    traverser = traverser->left;
-                } else {
-                    parent = traverser;
-                    traverser = traverser->right;
-                }
-            }
-            
-            if(traverser == NULL)
-                return false;
-            
-            // case 1: node has no child
-            if( ( traverser->left == NULL ) && ( traverser->right == NULL ) ){ 
-                node * tmp = traverser;
-                traverser = NULL;
-                delete tmp;
-            // case 2: node only has right children
-            } else if(traverser->left == NULL){
-                onlyRightChildren(traverser,parent);
-            } else {
-                twoChildren(traverser,parent);
-            }
-            
-            return true;
-        }
+        bool deleteNode(T val);
         //=======================
         
         // Delete helpers
         //=======================
-        void onlyRightChildren(node * to_remove, node * parent){
+        void onlyOneChild(node * to_remove, node * parent){
             if(to_remove == root){
                 node * tmp = to_remove;
                 root = to_remove->right;
@@ -378,5 +313,78 @@ bool operator != (const BinarySearchTree<P>& lhs, const BinarySearchTree<P>& rhs
     return !(lhs == rhs);
 
 }
+
+template <typename T>
+bool BinarySearchTree<T>::insert(T _val){
+    if(root == NULL){
+        root = new node(_val);
+        return true;
+    }
+    
+    node * traverser = root;
+    node * parent = NULL;
+    
+    while(traverser != NULL){
+        
+        if(_val == traverser->key)
+            return false;
+            
+        parent = traverser;
+        // std::cout << parent->key << std::endl;
+        if(_val < traverser->key){
+            traverser = traverser->left;
+        } else {
+            traverser = traverser->right;
+        }
+        
+    }
+    
+    if(_val < parent->key){
+        parent->left = new node(_val);
+        return true;
+    } else {
+        parent->right = new node(_val);
+        return true;
+    }
+        
+    return false;
+    
+}
+
+template <typename T>
+bool BinarySearchTree<T>::deleteNode(T val){
+    node * parent = NULL;
+    node * traverser = root;
+    while(traverser){
+        if(traverser->key == val)
+            break;
+        if(val < traverser->key){
+            parent = traverser;
+            traverser = traverser->left;
+        } else {
+            parent = traverser;
+            traverser = traverser->right;
+        }
+    }
+    
+    if(traverser == NULL)
+        return false;
+    
+    // case 1: node has no child
+    if( ( traverser->left == NULL ) && ( traverser->right == NULL ) ){ 
+        node * tmp = traverser;
+        traverser = NULL;
+        delete tmp;
+    // case 2: node only has one child
+    } else if(traverser->left == NULL){
+        onlyOneChild(traverser,parent);
+    } else {
+        twoChildren(traverser,parent);
+    }
+    
+    return true;
+}
+
+
 
 #endif
