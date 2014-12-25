@@ -12,6 +12,8 @@ template <typename T>
 void quick_sort_template(T A[], int left, int right);
 
 unsigned long long int fibonacci_by_matrix(size_t num);
-void two_by_two_matrix_multiplication(unsigned long long int F[2][2], unsigned long long int A[2][2]);
+std::vector<std::vector<unsigned long long int> > exp_by_squaring(std::vector<std::vector<unsigned long long int> >& x, size_t n);
+void two_by_two_matrix_square(std::vector<std::vector<unsigned long long int> >& A);
+void two_by_two_matrix_multiplication(std::vector<std::vector<unsigned long long int> >& F, std::vector<std::vector<unsigned long long int> >& A);
 
 #endif

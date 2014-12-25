@@ -2,10 +2,10 @@ COMPILER = g++ # or CC if you prefer it on Hercules
 
 DRIVER = optimisation
 
-CXXFLAGS = -Wall -Wvla -Werror -g
+CXXFLAGS = -std=c++11 -Wall -Wvla -Werror -g
 
 GTESTFLAGS = -lgtest -pthread -lgtest_main
-#-lgtest_main
+
 
 all: $(DRIVER)
 
@@ -14,7 +14,7 @@ $(DRIVER) : $(DRIVER).o  #the first character on the next line is a tab
 	./$(DRIVER)
 
 $(DRIVER).o :  $(DRIVER).cpp  
-	$(COMPILER) -c $(DRIVER).cpp  -o $(DRIVER).o
+	$(COMPILER) -c $(DRIVER).cpp  -o $(DRIVER).o -std=c++11
 
 
 clean:

@@ -105,24 +105,57 @@ void quick_sort_template(T A[], int left, int right){
 
 */
 unsigned long long int fibonacci_by_matrix(size_t num){
+
+    vector<vector<unsigned long long int> > A{ {1, 1}, {1, 0}};
+    vector<vector<unsigned long long int> > F{ {1, 1}, {1, 0}};
     
-    unsigned long long int A[2][2] = { {1, 1}, {1, 0}};
-    unsigned long long int F[2][2] = { {1, 1}, {1, 0}};
-    
-    for (int i = 0; i < num; i++) {
-        two_by_two_matrix_multiplication(F,A);
-    }
-    
+    F = exp_by_squaring(A,num+1);
+
     // cout << F[1][1] << endl;
     
     return F[1][1];
     
 }
 
-// Helper function. 
-inline void two_by_two_matrix_multiplication(unsigned long long int F[2][2], unsigned long long int A[2][2]){
+// Exponentiation by squaring
+vector<vector<unsigned long long int> > exp_by_squaring(vector<vector<unsigned long long int> >& x, size_t n){
+     
+     if( n == 0 ){ 
+         vector<vector<unsigned long long int> > identity{ {1, 0}, {0, 1} };
+        return identity;
+     } else if( n == 1 ){ 
+         return x;
+     } else if( n % 2 == 0 ){
+         two_by_two_matrix_square(x);
+         return exp_by_squaring( x, n/2);
+     } else{
+         vector<vector<unsigned long long int> > x_squared(x);
+         two_by_two_matrix_square(x_squared);
+         vector<vector<unsigned long long int> > B = exp_by_squaring(x_squared, (n-1)/2);
+         two_by_two_matrix_multiplication(x, B);
+         return x;
+     }
+}
+
+// Helper functions.
+inline void two_by_two_matrix_square(vector<vector<unsigned long long int> >& A){
         
-        unsigned long long int TMP[2][2];
+        vector<vector<unsigned long long int> > TMP(2, vector<unsigned long long int>(2));
+        
+        TMP[0][0] = A[0][0]*A[0][0] + A[0][1]*A[1][0];
+        TMP[0][1] = A[0][0]*A[0][1] + A[0][1]*A[1][1];
+        TMP[1][0] = A[1][0]*A[0][0] + A[1][1]*A[1][0];
+        TMP[1][1] = A[1][0]*A[0][1] + A[1][1]*A[1][1];
+        
+        A[0][0] = TMP[0][0];
+        A[0][1] = TMP[0][1];
+        A[1][0] = TMP[1][0];
+        A[1][1] = TMP[1][1];
+}
+
+inline void two_by_two_matrix_multiplication(vector<vector<unsigned long long int> >& F, vector<vector<unsigned long long int> >& A){
+        
+        vector<vector<unsigned long long int> > TMP(2, vector<unsigned long long int>(2));
         
         TMP[0][0] = F[0][0]*A[0][0] + F[0][1]*A[1][0];
         TMP[0][1] = F[0][0]*A[0][1] + F[0][1]*A[1][1];
@@ -173,76 +206,76 @@ inline void two_by_two_matrix_multiplication(unsigned long long int F[2][2], uns
 //     }
 // }
 
-TEST(Opt, matrix_multiplication_time){
+// TEST(Opt, matrix_multiplication_time){
     
-    srand((unsigned int) time(0));
+//     srand((unsigned int) time(0));
     
-    int A[N][N];
-    int B[N][N];
-    int C[N][N];
+//     int A[N][N];
+//     int B[N][N];
+//     int C[N][N];
     
-    size_t size = N;
+//     size_t size = N;
     
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-                A[i][j] = (int)rand()*1000 + 1;
-                B[i][j] = (int)rand()*1000 + 1;
-                C[i][j] = (int)rand()*1000 + 1;
-        }
-    }
+//     for (int i = 0; i < N; i++) {
+//         for (int j = 0; j < N; j++) {
+//                 A[i][j] = (int)rand()*1000 + 1;
+//                 B[i][j] = (int)rand()*1000 + 1;
+//                 C[i][j] = (int)rand()*1000 + 1;
+//         }
+//     }
     
-    matrixMultiplication(A,B,C,size);
+//     matrixMultiplication(A,B,C,size);
     
-}
+// }
 
-TEST(Opt, quick_sort){
+// TEST(Opt, quick_sort){
     
-    int A[M];
-    srand(time(0));
-    for (int i = 0; i < M; i++) {
-        A[i] = (int)rand()*1000000 + 1;
-    }
+//     int A[M];
+//     srand(time(0));
+//     for (int i = 0; i < M; i++) {
+//         A[i] = (int)rand()*1000000 + 1;
+//     }
     
-    quickSort(A, 0, M);
+//     quickSort(A, 0, M);
    
-    // cout << "Done" << endl;
-    for(size_t i = 0; i < M - 1; i++){
-        EXPECT_LE(A[i], A[i+1]);   
-    }
+//     // cout << "Done" << endl;
+//     for(size_t i = 0; i < M - 1; i++){
+//         EXPECT_LE(A[i], A[i+1]);   
+//     }
     
-}
+// }
 
-TEST(Opt, quick_sort_template_int){
+// TEST(Opt, quick_sort_template_int){
     
-    int A[M];
-    srand(time(0));
-    for (int i = 0; i < M; i++) {
-        A[i] = (int)rand()*1000000 + 1;
-    }
+//     int A[M];
+//     srand(time(0));
+//     for (int i = 0; i < M; i++) {
+//         A[i] = (int)rand()*1000000 + 1;
+//     }
     
-    quick_sort_template(A, 0, M);
+//     quick_sort_template(A, 0, M);
     
-    for(size_t i = 0; i < M - 1; i++){
-        EXPECT_LE(A[i], A[i+1]);   
-    }
+//     for(size_t i = 0; i < M - 1; i++){
+//         EXPECT_LE(A[i], A[i+1]);   
+//     }
     
-}
+// }
 
-TEST(Opt, quick_sort_template_double){
+// TEST(Opt, quick_sort_template_double){
     
-    double D[M];
-    srand(time(0));
-    for (int i = 0; i < M; i++) {
-        D[i] = rand()*1000000 + 1;
-    }
+//     double D[M];
+//     srand(time(0));
+//     for (int i = 0; i < M; i++) {
+//         D[i] = rand()*1000000 + 1;
+//     }
     
-    quick_sort_template(D, 0, M);
+//     quick_sort_template(D, 0, M);
     
-    for(size_t i = 0; i < M - 1; i++){
-        EXPECT_LE(D[i], D[i+1]);   
-    }
+//     for(size_t i = 0; i < M - 1; i++){
+//         EXPECT_LE(D[i], D[i+1]);   
+//     }
     
-}
+// }
 
 TEST(Opt, fib){
     
